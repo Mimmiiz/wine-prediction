@@ -17,6 +17,16 @@ To predict the quality of wines, some features were removed since they seemed to
 
 The model that was used was the k-nearest neighbors. The model did not achieve high accuracy, especially for high and low quality wines. There was not much training data, especially for higher quality wines, additionally there were no red wines with a quality of 9 or higher. 
 
+Linear models were tested but is not the model uploaded to the Model regirstry, they achieved a little bit higher accuracy than the KNN model
+
+## Deployment
+Library requirements to run the core are found in the requirements.txt file. To run the code and pipelines you will need an account on Hopsworks, Modal, and Hugging face. The code should be run in the following steps:
+1. First run the wine-eda-and-backfill-feature-group.ipynb to upload the feature dataset as a Feature group in Hopsworks. 
+2. Run the training pipeline (wine-training-pipeline.ipynb) to train a model using the dataset uploaded to the Feature Group in Hopsworks and register the model.
+3. Deploy the daily-wine-feature-pipeliny.py on Modal, it is also possible to run the code locally, which is specified in the `LOCAL` constant. This pipeline generates a new synthetic wine based on normal distribution of the features of the wine dataset.
+4. Deploy the wine-batch-inference-pipeline.py on Modal or run it locally.
+5. Deploy the Gradio UIs to Hugging Face. The code is located in the folder wine and wine-monitor.
+
 ## Links to the UIs
 Link to Huggingface Space where you can enter feature values to predict wine quality:
 [https://huggingface.co/spaces/Mimmiiz/wine](https://huggingface.co/spaces/Mimmiiz/wine)
